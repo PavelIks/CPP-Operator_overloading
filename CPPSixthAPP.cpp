@@ -1,46 +1,76 @@
-﻿#include <iostream>
+﻿// ConsoleApplication2.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
+//
 
-class Drob
+#include <iostream>
+
+class Drod
 {
 public:
-	Drob()
+	Drod()
 	{
-		chislitel1 = 1;
-		chislitel2 = 1;
-		znamenatel1 = 1;
-		znamenatel2 = 1;
+		this->znamenatel1 = this->chislitel1 = 0;
 	}
-	Drob(int _chislitel1, int _chislitel2, int _znamenatel1, int _znamenatel2)
+	Drod(int chislitel1, int znamenatel1)
 	{
-		chislitel1 = _chislitel1;
-		chislitel2 = _chislitel2;
-		znamenatel1 = _znamenatel1;
-		znamenatel2 = _znamenatel2;
+		this->chislitel1 = chislitel1;
+		this->znamenatel1 = znamenatel1;
 	}
-	int c;
-	void metod_sumirovania(int chislitel1, int chislitel2, int znamenatel1, int znamenatel2)
+
+	// static
+	/*Drod operator +(Drod& other)
 	{
-		if (znamenatel1 != znamenatel2)
-		{
-			std::cout << "err";
-		}
-		c = chislitel1 + chislitel2;
+		return Drod
+		(
+			other.get_chislitel1() + this->get_chislitel1(),
+			other.get_znamenatel1() + this->get_znamenatel1()
+		);
+	}*/
+	// dynamic
+	inline Drod* operator +(Drod& other)
+	{
+		return new Drod
+		(
+			//other.get_chislitel1() + this->get_chislitel1(),
+			//other.get_znamenatel1() + this->get_znamenatel1()
+
+			this->get_znamenatel1() + this->get_chislitel1(),
+			other.get_chislitel1() + other.get_znamenatel1()
+		);
 	}
-	int get1()
+	int get_chislitel1()
 	{
-		return c;
+		return this->chislitel1;
+	}
+	int get_znamenatel1()
+	{
+		return this->znamenatel1;
+	}
+	void show()
+	{
+		std::cout << this->get_chislitel1() << " : " << this->get_znamenatel1() << "\n";
 	}
 
 private:
-	int chislitel1;
-	int chislitel2;
-	int znamenatel1;
-	int znamenatel2;
+	int chislitel1, znamenatel1;
 };
 
 int main()
 {
-	Drob drob1;
-	drob1.metod_sumirovania(35, 35, 3, 3);
-	std::cout << drob1.get1();
+	/*int chislitel1 = 7;
+	int znamenatel1 = 8;
+	int c = chislitel1 + znamenatel1;
+	std::cout << chislitel1 + znamenatel1;*/
+	Drod test_1(3, 2);
+	Drod test_2(5, 4);
+
+	// static
+	//Drod test_res = test_1 + test_2;
+	//test_res.show();
+
+	// dynamic
+	Drod* test_res = test_1 + test_2;
+	test_res->show();
+
+	// error
+	//std::cout << *test_res;
 }
