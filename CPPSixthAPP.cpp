@@ -1,84 +1,61 @@
-﻿// ConsoleApplication2.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
+﻿#include <iostream>
 
-#include <iostream>
-
-class Drob
+class C_Test
 {
 public:
-	Drob()
+	C_Test()
 	{
-		this->znamenatel1 = this->chislitel1 = 0;
+		this->b = this->a = 0;
 	}
-	Drob(int chislitel1, int znamenatel1)
+	C_Test(int a, int b)
 	{
-		this->chislitel1 = new int(chislitel1);
-		this->znamenatel1 = new int(znamenatel1);
+		this->a = a;
+		this->b = b;
 	}
-
-	// static
-	/*Drob operator +(Drob& other)
+	//		1
+	/*C_Test operator +(C_Test& other)
 	{
-		return Drob
-		(
-			other.get_chislitel1() + this->get_chislitel1(),
-			other.get_znamenatel1() + this->get_znamenatel1()
-		);
+		return C_Test(other.getA() + this->getA(), other.getB() + this->getB());
 	}*/
-	// dynamic
-	inline Drob* operator +(Drob& other)
+	//		2
+	inline C_Test* operator +(C_Test& other)
 	{
-		if (other.get_chislitel1() == other.get_znamenatel1())
-		{
-			return new Drob
-			(
-				other.get_chislitel1() /*+ this->get_chislitel1()*/, other.get_znamenatel1()
-				//other.get_chislitel1() + this->get_chislitel1(),
-					//other.get_znamenatel1() + this->get_znamenatel1()
-
-			);
-		}
+		return new C_Test(other.getA() + this->getA(), other.getB() + this->getB());
 	}
-	int get_chislitel1()
+	int getA()
 	{
-		return *this->chislitel1;
+		return this->a;
 	}
-	int get_znamenatel1()
+	int getB()
 	{
-		return *this->znamenatel1;
+		return this->b;
 	}
 	void show()
 	{
-		std::cout << this->get_chislitel1() << "\n" << "---" << "\n" << this->get_znamenatel1() << "\n";
+		std::cout << this->getA() << " : " << this->getB() << "\n";
 	}
-
-	~Drob()
-	{
-
-	}
-
 private:
-	int* chislitel1, * znamenatel1;
+	int a, b;
 };
 
 int main()
 {
-	/*int chislitel1 = 7;
-	int znamenatel1 = 8;
-	int c = chislitel1 + znamenatel1;
-	std::cout << chislitel1 + znamenatel1;*/
-	Drob drob1(3, 2);
-	Drob drob2(5, 4);
+	/*int a = 7;
+	int b = 8;
+	int c = a + b;
+	std::cout << a + b;*/
 
-	drob1.show();
-	// static
-	//Drob test_res = drob1 + drob2;
+	C_Test test_1(9, 9);
+	C_Test test_2(7, 7);
+
+	//		1
+	//C_Test test_res = test_1 + test_2;
 	//test_res.show();
 
-	// dynamic
-	Drob* test_res = drob1 + drob2;
-	//test_res->show();
+	//		2
+	C_Test* test_res = test_1 + test_2;
+	test_res->show();
 
-	// error
+	//		error
 	//std::cout << *test_res;
 }
