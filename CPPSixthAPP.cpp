@@ -57,7 +57,8 @@ int main()
 {
 	C_Test test_1(9, 9);
 	C_Test test_2(7, 7);
+	/*C_Test *test_res = test_1 + test_2;*/
 	C_Test test_res = test_1 + test_2;
-	test_res.show();
 	/*test_res->show();*/
+	test_res.show();
 }
